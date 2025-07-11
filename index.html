@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xin lỗi Pé Nhoooo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+    }
+    h1 {
+      margin-top: 60px;
+      font-size: 40px;
+    }
+    p {
+      font-size: 18px;
+      width: 80%;
+      margin: 20px auto;
+      line-height: 1.6;
+    }
+    img {
+      width: 200px;
+      border-radius: 20px;
+      margin-top: 20px;
+      transition: 0.3s ease;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #forgiveBtn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #refuseBtn {
+      background-color: #f44336;
+      color: white;
+    }
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      transform: rotate(45deg);
+      animation: fall 5s linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -7.5px; left: 0; }
+    .heart::after  { top: 0; left: -7.5px; }
+    @keyframes fall {
+      0% { transform: translateY(-10%) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Vợ ui anh xin lõi</h1>
+  <p>
+    Xin lỗi mò bữa sao không có tái phạm nũa<br>
+    Anh Xin nho voiu<br>
+    Pé ui xinluiiiiiiiiiiiiiii❤️
+  </p>
+  <img id="mainImage" src="https://i.imgur.com/E6ZdG1x.gif" alt="Love Image">
+  
+  <div class="button-container">
+    <button id="refuseBtn">Đéo tha</button>
+    <button id="forgiveBtn">Em tha lỗi</button>
+  </div>
+
+  <audio autoplay loop>
+    <source src="Wii Music - Gaming Background Music (HD) - Gaming Sound FX (1).mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
+
+  const refuseBtn = document.getElementById('refuseBtn');
+  const forgiveBtn = document.getElementById('forgiveBtn');
+  const image = document.getElementById('mainImage');
+  const title = document.querySelector('h1');
+  const paragraph = document.querySelectorAll('p')[0]; // Chọn đoạn văn đầu
+
+  let forgiveClickCount = 0;
+
+  const sadImages = [
+    "https://i.imgur.com/LDuQjzX.jpeg",
+    "https://i.imgur.com/AqKHzU0.jpeg",
+    "https://i.imgur.com/DSXUr8l.gif",
+    "https://i.imgur.com/OGjiyyS.jpeg",
+    "https://i.imgur.com/fzlV8vj.jpeg",
+    "https://i.imgur.com/f8BbLYx.gif"
+  ];
+
+  const titles = [
+    "Vợ uii xin lũi mò🥺",
+    "Đừng giận anh nũaa...",
+    "😓 Tha cho anh đi...",
+    "Lần đầu cũng như lần cúi mò👉👈",
+    "Anh bic Sai gùi..."
+  ];
+
+  const messages = [
+    "Tha lỗi cho anh đi anh bic sai rùi😔",
+    "Anh bic sai rùi a hứa k tái phạm nữa đau😞",
+    "Thoi mà vợ tha cho anh nhoa moaaaaaa🥺",
+    "Thương vợ nhìu lắm á😭",
+    "Có lần nhưng không có lần 2 đou🥺"
+  ];
+
+  refuseBtn.addEventListener('click', () => {
+    const randomImg = sadImages[Math.floor(Math.random() * sadImages.length)];
+    const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+
+    image.src = randomImg;
+    title.textContent = randomTitle;
+    paragraph.textContent = randomMsg;
+
+    forgiveClickCount++;
+    forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
+  });
+
+  forgiveBtn.addEventListener('click', () => {
+    forgiveClickCount++;
+    forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
+    if (forgiveClickCount >= 5) {
+      window.location.href = "https://minhhhhhhhhhhh1910.github.io/Thanksyou/";
+    }
+  });
+</script>
+</body>
+</html>
