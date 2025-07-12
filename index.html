@@ -5,6 +5,10 @@
   <title>Xin lỗi Pé Nhoooo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -14,25 +18,30 @@
       overflow: hidden;
       color: #fff;
     }
+
     h1 {
       margin-top: 60px;
       font-size: 40px;
     }
+
     p {
       font-size: 18px;
       width: 80%;
       margin: 20px auto;
       line-height: 1.6;
     }
+
     img {
       width: 200px;
       border-radius: 20px;
       margin-top: 20px;
       transition: 0.3s ease;
     }
+
     .button-container {
       margin-top: 30px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 18px;
@@ -42,22 +51,28 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     #forgiveBtn {
       background-color: #4CAF50;
       color: white;
     }
+
     #refuseBtn {
       background-color: #f44336;
       color: white;
     }
+
+    /* Heart animation */
     .heart {
-      position: absolute;
+      position: fixed;
       width: 15px;
       height: 15px;
       background: red;
       transform: rotate(45deg);
-      animation: fall 5s linear infinite;
+      animation: fall linear infinite;
+      z-index: 0;
     }
+
     .heart::before,
     .heart::after {
       content: "";
@@ -67,14 +82,145 @@
       background: red;
       border-radius: 50%;
     }
-    .heart::before { top: -7.5px; left: 0; }
-    .heart::after  { top: 0; left: -7.5px; }
+
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -7.5px;
+    }
+
     @keyframes fall {
-      0% { transform: translateY(-10%) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .popup.hide {
+      animation: fadeOut 0.4s ease forwards;
+    }
+
+    .popup-content {
+      background: #fff;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 90%;
+      animation: bounceIn 0.5s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup-content.hide-content {
+      animation: shrinkOut 0.3s ease forwards;
+    }
+
+    .popup-content h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #e91e63;
+    }
+
+    .popup-content p {
+      font-size: 16px;
+      margin: 15px 0;
+    }
+
+    .popup-content img {
+      width: 200px;
+      border-radius: 15px;
+      margin: 10px 0;
+    }
+
+    .popup-content button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff4081;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .popup-content button:hover {
+      background-color: #e91e63;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+
+      70% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shrinkOut {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
+
 <body>
   <h1>Vợ ui anh xin lõi</h1>
   <p>
@@ -83,7 +229,7 @@
     Pé ui xinluiiiiiiiiiiiiiii❤️
   </p>
   <img id="mainImage" src="https://i.imgur.com/E6ZdG1x.gif" alt="Love Image">
-  
+
   <div class="button-container">
     <button id="refuseBtn">Đéo tha</button>
     <button id="forgiveBtn">Em tha lỗi</button>
@@ -93,70 +239,87 @@
     <source src="Wii Music - Gaming Background Music (HD) - Gaming Sound FX (1).mp3" type="audio/mp3">
   </audio>
 
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div id="popupContent" class="popup-content">
+      <h2>🐣 THÔNG BÁO 🥺</h2>
+      <p>VỢ TUI DẬN TUI RỒI NÊN TUI DỖ BẰNG CÁCH NÀY:))❤️</p>
+      <img src="https://i.imgur.com/E6ZdG1x.gif" alt="Cute gif">
+      <br>
+      <button onclick="closePopup()">Đóng</button>
+    </div>
+  </div>
+
   <script>
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }
-  setInterval(createHeart, 300);
-
-  const refuseBtn = document.getElementById('refuseBtn');
-  const forgiveBtn = document.getElementById('forgiveBtn');
-  const image = document.getElementById('mainImage');
-  const title = document.querySelector('h1');
-  const paragraph = document.querySelectorAll('p')[0]; // Chọn đoạn văn đầu
-
-  let forgiveClickCount = 0;
-
-  const sadImages = [
-    "https://i.imgur.com/LDuQjzX.jpeg",
-    "https://i.imgur.com/AqKHzU0.jpeg",
-    "https://i.imgur.com/DSXUr8l.gif",
-    "https://i.imgur.com/OGjiyyS.jpeg",
-    "https://i.imgur.com/fzlV8vj.jpeg",
-    "https://i.imgur.com/f8BbLYx.gif"
-  ];
-
-  const titles = [
-    "Vợ uii xin lũi mò🥺",
-    "Đừng giận anh nũaa...",
-    "😓 Tha cho anh đi...",
-    "Lần đầu cũng như lần cúi mò👉👈",
-    "Anh bic Sai gùi..."
-  ];
-
-  const messages = [
-    "Tha lỗi cho anh đi anh bic sai rùi😔",
-    "Anh bic sai rùi a hứa k tái phạm nữa đau😞",
-    "Thoi mà vợ tha cho anh nhoa moaaaaaa🥺",
-    "Thương vợ nhìu lắm á😭",
-    "Có lần nhưng không có lần 2 đou🥺"
-  ];
-
-  refuseBtn.addEventListener('click', () => {
-    const randomImg = sadImages[Math.floor(Math.random() * sadImages.length)];
-    const randomTitle = titles[Math.floor(Math.random() * titles.length)];
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-
-    image.src = randomImg;
-    title.textContent = randomTitle;
-    paragraph.textContent = randomMsg;
-
-    forgiveClickCount++;
-    forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
-  });
-
-  forgiveBtn.addEventListener('click', () => {
-    forgiveClickCount++;
-    forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
-    if (forgiveClickCount >= 5) {
-      window.location.href = "https://minhhhhhhhhhhh1910.github.io/Thanksyou/";
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      heart.style.top = '-10px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
     }
-  });
-</script>
-</body>
-</html>
+    setInterval(createHeart, 150);
+
+    const refuseBtn = document.getElementById('refuseBtn');
+    const forgiveBtn = document.getElementById('forgiveBtn');
+    const image = document.getElementById('mainImage');
+    const title = document.querySelector('h1');
+    const paragraph = document.querySelectorAll('p')[0];
+
+    let forgiveClickCount = 0;
+
+    const sadImages = [
+      "https://i.imgur.com/LDuQjzX.jpeg",
+      "https://i.imgur.com/AqKHzU0.jpeg",
+      "https://i.imgur.com/DSXUr8l.gif",
+      "https://i.imgur.com/OGjiyyS.jpeg",
+      "https://i.imgur.com/fzlV8vj.jpeg",
+      "https://i.imgur.com/f8BbLYx.gif"
+    ];
+
+    const titles = [
+      "Vợ uii xin lũi mò🥺",
+      "Đừng giận anh nũaa...",
+      "😓 Tha cho anh đi...",
+      "Lần đầu cũng như lần cúi mò👉👈",
+      "Anh bic Sai gùi..."
+    ];
+
+    const messages = [
+      "Tha lỗi cho anh đi anh bic sai rùi😔",
+      "Anh bic sai rùi a hứa k tái phạm nữa đau😞",
+      "Thoi mà vợ tha cho anh nhoa moaaaaaa🥺",
+      "Thương vợ nhìu lắm á😭",
+      "Có lần nhưng không có lần 2 đou🥺"
+    ];
+
+    refuseBtn.addEventListener('click', () => {
+      const randomImg = sadImages[Math.floor(Math.random() * sadImages.length)];
+      const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+
+      image.src = randomImg;
+      title.textContent = randomTitle;
+      paragraph.textContent = randomMsg;
+
+      forgiveClickCount++;
+      forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
+    });
+
+    forgiveBtn.addEventListener('click', () => {
+      forgiveClickCount++;
+      forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
+      if (forgiveClickCount >= 5) {
+        window.location.href = "https://minhhhhhhhhhhh1910.github.io/Thanksyou/";
+      }
+    });
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const popupContent = document.getElementById('popupContent');
+      popupContent.classList.add('hide-content');
+      popup.classList.add('hide');
+      setTimeout(() => popup.style.display = 'none', 400);
+    }
