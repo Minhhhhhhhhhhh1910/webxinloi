@@ -120,7 +120,9 @@
     }
 
     .popup.hide {
-      animation: fadeOut 0.4s ease forwards;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .popup-content {
@@ -180,13 +182,6 @@
       }
     }
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
     @keyframes bounceIn {
       0% {
         transform: scale(0.3);
@@ -236,7 +231,7 @@
   </div>
 
   <audio autoplay loop>
-    <source src="Wii Music - Gaming Background Music (HD) - Gaming Sound FX (1).mp3" type="audio/mp3">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/3/34/Elise_-_Wii_Music.mp3" type="audio/mp3">
   </audio>
 
   <!-- Popup -->
@@ -251,6 +246,7 @@
   </div>
 
   <script>
+    // Tạo tim rơi
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
@@ -295,6 +291,7 @@
       "Có lần nhưng không có lần 2 đou🥺"
     ];
 
+    // Khi nhấn "Đéo tha"
     refuseBtn.addEventListener('click', () => {
       const randomImg = sadImages[Math.floor(Math.random() * sadImages.length)];
       const randomTitle = titles[Math.floor(Math.random() * titles.length)];
@@ -308,6 +305,7 @@
       forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
     });
 
+    // Khi nhấn "Em tha lỗi"
     forgiveBtn.addEventListener('click', () => {
       forgiveClickCount++;
       forgiveBtn.style.transform = `scale(${1 + forgiveClickCount * 0.1})`;
@@ -316,10 +314,19 @@
       }
     });
 
+    // Đóng popup
     function closePopup() {
       const popup = document.getElementById('popup');
       const popupContent = document.getElementById('popupContent');
+
       popupContent.classList.add('hide-content');
-      popup.classList.add('hide');
-      setTimeout(() => popup.style.display = 'none', 400);
+      popupContent.addEventListener('animationend', () => {
+        popup.classList.add('hide');
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 400);
+      }, { once: true });
     }
+  </script>
+</body>
+</html>
